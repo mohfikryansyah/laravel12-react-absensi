@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         $today = Carbon::today();
         $office = Office::first();
-        $query = Attendance::with('user')->latest();
+        $query = Attendance::with('user');
         $attendances = $query->get();
         $countEmployees = $this->countEmployees();
         $countAttendances = $this->countAttendances();

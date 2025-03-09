@@ -51,37 +51,34 @@ export default function pages({ attendances, countAttendancesToday, countAttenda
     const [tanggalAkhir, setTanggalAkhir] = useState<Date | null>(null);
 
     const filteredAttendances = attendances.filter((attendance) => {
-        if (!attendance.tanggal) return true;
+        let passesDateFilter = true;
+        if (attendance.tanggal) {
+            const attendanceDate = new Date(attendance.tanggal);
+            const startDate = tanggalAwal ? new Date(tanggalAwal) : null;
+            let endDate = tanggalAkhir ? new Date(tanggalAkhir) : null;
 
-        const attendanceDate = new Date(attendance.tanggal);
-        const startDate = tanggalAwal ? new Date(tanggalAwal) : null;
-        let endDate = tanggalAkhir ? new Date(tanggalAkhir) : null;
-
-        if (endDate) {
-            endDate.setHours(23, 59, 59, 999);
-        }
-
-        if (!startDate && !endDate) {
-            const attendanceDateString = format(attendanceDate, 'yyyy-MM-dd');
-            return attendanceDateString === today;
-        }
-
-        if (startDate && endDate) {
-            if (!(attendanceDate >= startDate && attendanceDate <= endDate)) {
-                return false;
+            if (endDate) {
+                endDate.setHours(23, 59, 59, 999);
             }
-        } else if (startDate) {
-            if (!(attendanceDate >= startDate)) {
-                return false;
-            }
-        } else if (endDate) {
-            if (!(attendanceDate <= endDate)) {
-                return false;
+
+            if (!startDate && !endDate) {
+                const attendanceDateString = format(attendanceDate, 'yyyy-MM-dd');
+                passesDateFilter = attendanceDateString === today;
+            } else if (startDate && endDate) {
+                passesDateFilter = attendanceDate >= startDate && attendanceDate <= endDate;
+            } else if (startDate) {
+                passesDateFilter = attendanceDate >= startDate;
+            } else if (endDate) {
+                passesDateFilter = attendanceDate <= endDate;
             }
         }
 
-        const matchesStatus = selectedStatuses.length === 0 || selectedStatuses.includes(attendance.status);
-        return matchesStatus;
+        let passesStatusFilter = true;
+        if (selectedStatuses.length > 0) {
+            passesStatusFilter = selectedStatuses.includes(String(attendance.status));
+        }
+
+        return passesDateFilter && passesStatusFilter;
     });
 
     useEffect(() => {
@@ -176,10 +173,10 @@ export default function pages({ attendances, countAttendancesToday, countAttenda
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-col gap-4 rounded-xl p-4">
-                <div className="flex md:flex-row flex-col gap-y-4 w-full gap-4">
+                <div className="flex w-full flex-col gap-4 gap-y-4 md:flex-row">
                     <Card className="w-full">
                         <CardHeader>
-                            <CardTitle>Total Presensi Hari Ini</CardTitle>
+                            <CardTitle>{tanggalAwal || tanggalAkhir ? "Total Presensi" : "Total Presensi Hari Ini"}</CardTitle>
                             <CardDescription>Jumlah pegawai yang melakukan presensi hari ini</CardDescription>
                         </CardHeader>
                         <CardContent>
@@ -205,14 +202,14 @@ export default function pages({ attendances, countAttendancesToday, countAttenda
                         </CardContent>
                     </Card>
                 </div>
-                <div className="flex md:h-full h-[500px] w-full">
+                <div className="flex h-[500px] w-full md:h-full">
                     <Card className="flex flex-1 flex-col">
-                        <CardHeader className="flex md:flex-row gap-y-2 flex-col items-center justify-between">
+                        <CardHeader className="flex flex-col items-center justify-between gap-y-2 md:flex-row">
                             <CardTitle>Peta Presensi</CardTitle>
 
                             <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="outline" className="md:ml-auto w-full md:w-fit">
+                                    <Button variant="outline" className="w-full md:ml-auto md:w-fit">
                                         Filter Status {selectedStatuses.length > 0 && `(${selectedStatuses.length})`}
                                     </Button>
                                 </DropdownMenuTrigger>

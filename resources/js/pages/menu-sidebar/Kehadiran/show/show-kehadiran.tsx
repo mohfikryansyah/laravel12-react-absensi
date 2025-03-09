@@ -46,34 +46,37 @@ export default function ShowKehadiranUser({ attendances, office }: { attendances
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [tanggalAwal, setTanggalAwal] = useState<Date | null>(null);
     const [tanggalAkhir, setTanggalAkhir] = useState<Date | null>(null);
+    const today = format(new Date(), 'yyyy-MM-dd');
 
     const filteredAttendances = attendances.filter((attendance) => {
-        if (!attendance.tanggal) return true;
+        let passesDateFilter = true;
+        if (attendance.tanggal) {
+            const attendanceDate = new Date(attendance.tanggal);
+            const startDate = tanggalAwal ? new Date(tanggalAwal) : null;
+            let endDate = tanggalAkhir ? new Date(tanggalAkhir) : null;
 
-        const attendanceDate = new Date(attendance.tanggal);
-        const startDate = tanggalAwal ? new Date(tanggalAwal) : null;
-        let endDate = tanggalAkhir ? new Date(tanggalAkhir) : null;
+            if (endDate) {
+                endDate.setHours(23, 59, 59, 999);
+            }
 
-        if (endDate) {
-            endDate.setHours(23, 59, 59, 999);
-        }
-        
-        if (startDate && endDate) {
-            if (!(attendanceDate >= startDate && attendanceDate <= endDate)) {
-                return false;
-            }
-        } else if (startDate) {
-            if (!(attendanceDate >= startDate)) {
-                return false;
-            }
-        } else if (endDate) {
-            if (!(attendanceDate <= endDate)) {
-                return false;
+            if (!startDate && !endDate) {
+                const attendanceDateString = format(attendanceDate, 'yyyy-MM-dd');
+                passesDateFilter = attendanceDateString === today;
+            } else if (startDate && endDate) {
+                passesDateFilter = attendanceDate >= startDate && attendanceDate <= endDate;
+            } else if (startDate) {
+                passesDateFilter = attendanceDate >= startDate;
+            } else if (endDate) {
+                passesDateFilter = attendanceDate <= endDate;
             }
         }
 
-        const matchesStatus = selectedStatuses.length === 0 || selectedStatuses.includes(attendance.status);
-        return matchesStatus;
+        let passesStatusFilter = true;
+        if (selectedStatuses.length > 0) {
+            passesStatusFilter = selectedStatuses.includes(String(attendance.status));
+        }
+
+        return passesDateFilter && passesStatusFilter;
     });
 
     useEffect(() => {
