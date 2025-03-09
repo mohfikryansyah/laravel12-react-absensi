@@ -153,7 +153,7 @@ export default function Welcome() {
                             <div className="absolute -bottom-[38rem] left-1/2 z-[12] h-[50rem] w-[50rem] -translate-x-1/2 transform rounded-full border-2 border-gray-300/20 bg-gray-200/70"></div>
                             <div className="absolute -bottom-[41rem] left-1/2 z-[14] h-[50rem] w-[50rem] -translate-x-1/2 transform rounded-full border-2 border-gray-300/20 bg-gray-300/60"></div>
                             <a
-                                href="{{ asset('aplikasi-mobile/absensi.apk') }}"
+                                href="aplikasi-mobile/absensi.apk"
                                 className="absolute bottom-8 left-1/2 z-[15] inline-flex -translate-x-1/2 transform items-center gap-x-2 rounded-full border border-transparent bg-[#3b5766] px-4 py-4 text-sm font-medium text-white hover:bg-[#334b58] focus:bg-[#3b5766] focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                             >
                                 <i className="fa-solid fa-cloud-arrow-down text-xl"></i>
