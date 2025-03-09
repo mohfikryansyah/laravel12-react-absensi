@@ -22,7 +22,7 @@ export const columns = (office: Office): ColumnDef<Attendance>[] => [
                 <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8 overflow-hidden rounded-full">
                         {row.original.swafoto ? (
-                            <img src={'storage/' + row.original.swafoto} alt={user.name} />
+                            <img src={'/storage/' + row.original.swafoto} alt={user.name} className='size-8' />
                         ) : (
                             <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                                 {getInitials(user.name)}

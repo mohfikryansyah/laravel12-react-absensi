@@ -24,7 +24,7 @@ export const columns: ColumnDef<Employee>[] = [
                 <div className="flex items-center gap-3">
                     <Avatar className="h-8 w-8 overflow-hidden rounded-full">
                         {row.original.avatar ? (
-                            <img key={row.original.avatar} src={'storage/' + row.original.avatar} alt={user.name} />
+                            <img key={row.original.avatar} src={'/storage/' + row.original.avatar} alt={user.name} className="size-8" />
                         ) : (
                             <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                                 {getInitials(user.name)}

@@ -140,7 +140,7 @@ export default function ShowKehadiranUser({ attendances, office }: { attendances
 
                         {marker.swafoto ? (
                             <div className="relative mt-3">
-                                <img src={marker.swafoto} className="h-auto w-[200px] rounded-lg border" alt="Swafoto" />
+                                <img src={'/storage/' + marker.swafoto} className="h-auto w-[200px] rounded-lg border" alt="Swafoto" />
                                 <div className="absolute top-1 left-1 rounded-full bg-black/50 p-1 text-white">
                                     <Camera className="text-sm" />
                                 </div>
