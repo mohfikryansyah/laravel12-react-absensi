@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Building2Icon, CalendarCheckIcon, CheckCircleIcon, Folder, LayoutGrid, LocateFixedIcon, UserCircle2Icon } from 'lucide-react';
+import { BookOpen, Briefcase, Building2Icon, CalendarCheckIcon, CheckCircleIcon, Folder, LayoutGrid, LocateFixedIcon, UserCircle2Icon } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -38,6 +38,11 @@ const tertiaryNavItems: NavItem[] = [
         title: 'Divisi',
         url: '/devisi',
         icon: Building2Icon,
+    },
+    {
+        title: 'Cuti & Perjalanan Dinas',
+        url: '/cuti-perjalanan-dinas',
+        icon: Briefcase,
     },
 ];
 

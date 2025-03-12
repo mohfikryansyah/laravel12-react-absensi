@@ -33,6 +33,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $userRole = Auth::user()->roles->first()->name;
+
+        if (in_array($userRole, ['staff', 'kasubag'])) {
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->withErrors(['login' => 'Anda tidak diizinkan. Login melalui aplikasi ya.']);
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

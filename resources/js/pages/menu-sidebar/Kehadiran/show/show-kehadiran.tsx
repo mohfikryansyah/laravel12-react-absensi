@@ -59,10 +59,7 @@ export default function ShowKehadiranUser({ attendances, office }: { attendances
                 endDate.setHours(23, 59, 59, 999);
             }
 
-            if (!startDate && !endDate) {
-                const attendanceDateString = format(attendanceDate, 'yyyy-MM-dd');
-                passesDateFilter = attendanceDateString === today;
-            } else if (startDate && endDate) {
+            if (startDate && endDate) {
                 passesDateFilter = attendanceDate >= startDate && attendanceDate <= endDate;
             } else if (startDate) {
                 passesDateFilter = attendanceDate >= startDate;

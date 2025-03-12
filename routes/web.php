@@ -8,6 +8,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\Staff\DashboardController;
 use App\Http\Controllers\Admin\DashboardController as DashboardAdminController;
+use App\Http\Controllers\CutiPerjadisController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -28,6 +29,7 @@ Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware
 Route::resource('/divisi', DevisiController::class);
 
 Route::middleware('auth')->group(function () {
+    Route::resource('/cuti-perjalanan-dinas', CutiPerjadisController::class);
     Route::resource('/attendances', AttendanceController::class)->except(['export']);
     Route::put('/attendance/clock-out', [AttendanceController::class, 'clock_out'])->name('attendances.clockout');
     Route::resource('/office', OfficeController::class)->except('index');

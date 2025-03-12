@@ -93,3 +93,9 @@ export interface Office {
     division: Divisi;
   }
   
+  export interface CutiPerjadis {
+    user: User;
+    keterangan: "Cuti" | "Perjalanan Dinas";
+    tanggal_awal: string;
+    tanggal_akhir: string;
+  }

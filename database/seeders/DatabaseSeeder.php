@@ -21,12 +21,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         $admin = \App\Models\User::factory()->create([
             'name' => 'ADMIN',
-            'email' => 'moh.fikryansyah@gmail.com',
-        ]);
-
-        $staff = \App\Models\User::factory()->create([
-            'name' => 'STAFF',
-            'email' => 'fiq@gmail.com',
+            'email' => 'admin@gmail.com',
         ]);
 
         Devisi::create([
@@ -35,7 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Devisi::create([
             'name' => 'Umum dan Kepegawaian',
-            'ketua' => 2,
+            'ketua' => 1,
         ]);
 
         
@@ -45,11 +40,10 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'kasubag']);
         Role::create(['name' => 'staff']);
 
-        Attendance::factory(20)->create();
+        // Attendance::factory(20)->create();
         Office::factory(1)->create();
-        Employee::factory(20)->create();
+        // Employee::factory(20)->create();
 
         $admin->assignRole('admin');
-        $staff->assignRole('admin');
     }
 }

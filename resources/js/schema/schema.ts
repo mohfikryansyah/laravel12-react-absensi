@@ -29,3 +29,10 @@ export const DivisiSchema = z.object({
   name: z.string().min(2).max(100),
   ketua: z.number(),
 })
+
+export const CutiPerjadisSchema = z.object({
+  user_id: z.number(),
+  tanggal_awal: z.date(),
+  tanggal_akhir: z.date(),
+  keterangan: z.enum(['Cuti', 'Perjalanan Dinas']),
+})
