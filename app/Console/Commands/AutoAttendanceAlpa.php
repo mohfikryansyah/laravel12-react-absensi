@@ -24,8 +24,8 @@ class AutoAttendanceAlpa extends Command
 
         // Cek apakah sudah lewat jam 10 pagi
         $now = Carbon::now();
-        if ($now->hour < 18) {
-            $this->info('Belum jam 6 sore, absen Alpa belum dijalankan.');
+        if ($now->hour < 11) {
+            $this->info('Belum jam 11 sore, absen Alpa belum dijalankan.');
             return;
         }
 
@@ -46,7 +46,7 @@ class AutoAttendanceAlpa extends Command
                 'clock_out' => '00:00:00',
                 'status' => 'Alpa',
                 'tanggal' => $today,
-                'keterangan' => 'Absen otomatis karena tidak hadir sebelum jam 6 sore',
+                'keterangan' => 'Absen otomatis karena tidak hadir sebelum jam 11 sore',
             ]);
 
             $this->info("User ID {$user->id} ditandai sebagai Alpa.");
