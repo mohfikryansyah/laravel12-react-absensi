@@ -38,7 +38,7 @@ class AttendanceController extends Controller
 
     public function show(Attendance $attendance)
     {
-        $attendances = Attendance::with(['user'])->where('user_id', $attendance->user_id)->latest()->get();
+        $attendances = Attendance::with(['user'])->where('user_id', $attendance->user_id)->latest('tanggal')->get();
         $office = Office::first();
         return Inertia::render('menu-sidebar/Kehadiran/show/show-kehadiran', compact('attendances', 'office'));
     }
