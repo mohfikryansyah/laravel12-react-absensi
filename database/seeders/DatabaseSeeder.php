@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'kasubag']);
         Role::create(['name' => 'staff']);
 
-        // Attendance::factory(20)->create();
+        Attendance::factory(20)->create();
         Office::factory(1)->create();
         // Employee::factory(20)->create();
 

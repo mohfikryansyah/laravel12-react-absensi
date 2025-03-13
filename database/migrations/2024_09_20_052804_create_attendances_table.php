@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('longitude', 10, 7)->nullable();
             $table->time('clock_in');
             $table->time('clock_out')->nullable();
-            $table->enum('status', ['Hadir', 'Izin', 'Sakit', 'Alpa', 'Perjalanan Dinas']);
+            $table->enum('status', ['Hadir', 'Izin', 'Sakit', 'Alpa', 'Perjalanan Dinas', 'Cuti']);
             $table->string('keterangan')->nullable();
             $table->date('tanggal')->nullable();
             $table->string('swafoto')->nullable();

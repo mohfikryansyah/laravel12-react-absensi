@@ -1,4 +1,4 @@
-import { Ban, CheckCircle, Circle, CircleOff, ClipboardCheck, HelpCircle, Hospital, Plane, Timer } from "lucide-react";
+import { Ban, CheckCircle, Circle, CircleOff, ClipboardCheck, HelpCircle, Hospital, Plane, Timer, UserMinus } from "lucide-react";
 
 export const statuses = [
     {
@@ -30,5 +30,11 @@ export const statuses = [
       label: "Perjalanan Dinas",
       icon: Plane,
       color: "text-purple-800 bg-purple-100"
+    },
+    {
+      value: "Cuti",
+      label: "Cuti",
+      icon: UserMinus ,
+      color: "text-gray-800 bg-gray-100"
     },
   ]

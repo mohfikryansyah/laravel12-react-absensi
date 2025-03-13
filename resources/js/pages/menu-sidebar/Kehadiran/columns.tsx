@@ -18,6 +18,7 @@ export const columns = (office: Office): ColumnDef<Attendance>[] => [
             const getInitials = useInitials();
             const user = row.original.user;
             const currentRoute = route().current();
+            const status = statuses.find((status) => status.value === row.getValue('status'))
 
             return (
                 <div className="flex items-center gap-3">
@@ -31,9 +32,9 @@ export const columns = (office: Office): ColumnDef<Attendance>[] => [
                                     <img src={'/storage/' + row.original.swafoto} alt={user.name} className="w-full h-auto" />
                                 </DialogContent>
                             </Dialog>
-                        ) : (
+                        ) : row.getValue('status') !== "Hadir" && (
                             <AvatarFallback className="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                {getInitials(user.name)}
+                                {getInitials(status?.label ?? 'Undefined')}
                             </AvatarFallback>
                         )}
                     </Avatar>

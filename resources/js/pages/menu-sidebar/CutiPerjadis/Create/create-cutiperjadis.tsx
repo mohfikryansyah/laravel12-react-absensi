@@ -205,9 +205,7 @@ export default function CreateCutiPerjadis({ cutiperjadis, users }: PropsCutiPer
                                         </PopoverTrigger>
                                         <PopoverContent className="popover-content-width-same-as-its-trigger w-auto p-0">
                                             <Command>
-                                                <CommandInput placeholder="Contoh: Sri Lutfianti" />
                                                 <CommandList>
-                                                    <CommandEmpty>Tidak ada pegawai yang ditemukan</CommandEmpty>
                                                     <CommandGroup>
                                                         <CommandItem
                                                             value={'Cuti'}
