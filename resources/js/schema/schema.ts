@@ -21,7 +21,7 @@ export const PegawaiSchema = z.object({
   date_of_birth: z.date(),
   date_joined: z.date(),
   gender: z.enum(['Laki-laki', 'Perempuan']),
-  address: z.string(),
+  address: z.string().min(2, 'Alamat setidaknya memiliki 5 karakter').max(200, 'Alamat tidak boleh lebih dari 200 karakter'),
   avatar: z.instanceof(File).refine((file) => file.size <= 1 * 1024 * 1024, {message: 'Foto tidak boleh lebih dari 1MB'}).refine((file) => ["image/jpeg", "image/png"].includes(file.type), "Format harus JPG/JPEG").optional(), 
 })
 

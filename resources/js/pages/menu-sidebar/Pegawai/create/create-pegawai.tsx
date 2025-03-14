@@ -35,6 +35,7 @@ export default function CreatePegawai({ devisis }: { devisis: Divisi[] }) {
         gender: false,
         divisi: false,
     });
+    const [ isSubmitClicked, setIsSubmitClicked ] = useState(false);
     const [uploadAvatar, setUploadAvatar] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -69,14 +70,17 @@ export default function CreatePegawai({ devisis }: { devisis: Divisi[] }) {
             date_of_birth: format(new Date(values.date_of_birth), "yyyy-MM-dd"),
             date_joined: format(new Date(values.date_joined), "yyyy-MM-dd"),
         };
+        setIsSubmitClicked(true)
         router.post(route('employees.store'), formattedValues, {    
             preserveScroll: true,
             onSuccess: () => {
                 toast.success('Berhasil menambahkan pegawai!')
                 form.reset();
+                setIsSubmitClicked(false)
             },
             onError: (errors) => {
                 toast.error('Error: ' + errors)
+                setIsSubmitClicked(false)
                 Object.entries(errors).forEach(([key, value]) => {
                     form.setError(key as keyof z.infer<typeof PegawaiSchema>, {
                         type: "server",
@@ -205,7 +209,7 @@ export default function CreatePegawai({ devisis }: { devisis: Divisi[] }) {
                                                         </PopoverContent>
                                                     </Popover>
                                                 </div>
-                                                <FormMessage />
+                                                <FormMessage className="md:ml-[150px]"/>
                                             </FormItem>
                                         )}
                                     />
@@ -274,6 +278,7 @@ export default function CreatePegawai({ devisis }: { devisis: Divisi[] }) {
                                                         </PopoverContent>
                                                     </Popover>
                                                 </div>
+                                                <FormMessage className="md:ml-[150px]"/>
                                             </FormItem>
                                         )}
                                     />
@@ -385,6 +390,7 @@ export default function CreatePegawai({ devisis }: { devisis: Divisi[] }) {
                                                         </PopoverContent>
                                                     </Popover>
                                                 </div>
+                                                <FormMessage className="md:ml-[150px]"/>
                                             </FormItem>
                                         )}
                                     />
@@ -422,11 +428,11 @@ export default function CreatePegawai({ devisis }: { devisis: Divisi[] }) {
                                                         </PopoverContent>
                                                     </Popover>
                                                 </div>
-                                                <FormMessage />
+                                                <FormMessage className="md:ml-[150px]"/>
                                             </FormItem>
                                         )}
                                     />
-                                    <Button type="submit">Submit</Button>
+                                    <Button type="submit" disabled={isSubmitClicked}>Submit</Button>
                                 </form>
                             </Form>
                         </CardContent>
