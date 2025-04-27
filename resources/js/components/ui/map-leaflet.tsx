@@ -45,8 +45,6 @@ export const defaultMarkerIcon = new Icon({
 });
 
 export default function MapLeaflet({
-    className = "",
-    // height = "500px",
     zoom = 10,
     center = [0.5753543789632711, 123.27836689275536],
     children,

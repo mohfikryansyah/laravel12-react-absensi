@@ -21,6 +21,7 @@ import { useEffect, useRef, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { statuses } from '../Kehadiran/data/data';
 import FilterRentangTanggal from '../Kehadiran/filter-rentang-tanggal';
+import PopupContent from './popup-content';
 
 interface Dasboard {
     attendances: Attendance[];
@@ -106,54 +107,11 @@ export default function pages({ attendances, countAttendancesToday, countAttenda
                 const lng = marker.longitude ?? 0;
                 const lokasiAbsensiPegawai = L.latLng(lat, lng);
                 let popupContent = ReactDOMServer.renderToString(
-                    <div className="w-[200px]">
-                        <div className="flex items-center gap-2">
-                            <UserCircle className="text-xl text-gray-500" />
-                            <h1 className="font-bold text-gray-800">{marker.user.name}</h1>
-                        </div>
-
-                        <Badge className={cn('mt-2 w-full px-2 py-1 text-xs font-bold', status?.color)}>{status?.label}</Badge>
-
-                        <div className="my-2 flex justify-between rounded-lg text-sm text-gray-700">
-                            <div className="flex flex-col items-start gap-y-2">
-                                <span className="font-medium">Jam Masuk:</span>
-                                <span
-                                    className={cn(
-                                        'rounded-md px-2 py-1 font-semibold',
-                                        marker.clock_in > office.clock_in ? 'bg-red-100 text-red-500' : 'bg-green-100 text-green-500',
-                                    )}
-                                >
-                                    {marker.clock_in}
-                                </span>
-                            </div>
-                            <div className="flex flex-col items-start gap-y-2">
-                                <span className="font-medium">Jam Keluar:</span>
-                                <span
-                                    className={cn(
-                                        'rounded-md px-2 py-1 font-semibold',
-                                        marker.clock_out
-                                            ? marker.clock_out > office.clock_out
-                                                ? 'bg-green-100 text-green-500'
-                                                : 'bg-red-100 text-red-500'
-                                            : 'bg-gray-200 text-gray-500',
-                                    )}
-                                >
-                                    {marker.clock_out || '-'}
-                                </span>
-                            </div>
-                        </div>
-
-                        {marker.swafoto ? (
-                            <div className="relative mt-3">
-                                <img src={'/storage/' + marker.swafoto} className="h-auto w-[200px] rounded-lg border" alt="Swafoto" />
-                                <div className="absolute top-1 left-1 rounded-full bg-black/50 p-1 text-white">
-                                    <Camera className="text-sm" />
-                                </div>
-                            </div>
-                        ) : (
-                            <p className="mt-3 text-xs text-gray-500 italic">Swafoto tidak tersedia</p>
-                        )}
-                    </div>,
+                    <PopupContent
+                        marker={marker}
+                        office={office}
+                        status={status || { color: 'gray', label: 'Unknown' }}
+                    />
                 );
 
                 if (mapRef.current) {
@@ -168,6 +126,8 @@ export default function pages({ attendances, countAttendancesToday, countAttenda
     const handleStatusChange = (status: string, checked: boolean) => {
         setSelectedStatuses((prev) => (checked ? [...prev, status] : prev.filter((s) => s !== status)));
     };
+
+    console.log()
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

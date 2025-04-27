@@ -9,5 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-// Schedule::command('attendance:auto-cuti-perjadin')->dailyAt('00:01');
-// Schedule::command('attendance:auto-alpa')->dailyAt('18:00');
+Schedule::command('attendance:auto-cuti-perjadin')->everySecond();
+Schedule::command('attendance:auto-alpa')->dailyAt('17:00');
